@@ -1,0 +1,23 @@
+{% extends 'course/base.html' %}
+
+{% block title %}Student Detail{% endblock %}
+
+{% block content %}
+  <h2>{{ object.name }}</h2>
+  <p>Age: {{ object.age }}</p>
+  <p>Date of birth: {{ object.date_of_birth }}</p>
+  {% if object.image %}
+    <img src="{{ object.image.url }}" alt="{{ object.name }}" width="150">
+  {% endif %}
+  <p>Courses:
+    <ul>
+      {% for c in object.courses.all %}
+        <li>{{ c }}</li>
+      {% empty %}
+        <li>No courses</li>
+      {% endfor %}
+    </ul>
+  </p>
+  <a href="{% url 'course:student_edit' object.pk %}">Edit</a> |
+  <a href="{% url 'course:student_delete' object.pk %}">Delete</a>
+{% endblock %}

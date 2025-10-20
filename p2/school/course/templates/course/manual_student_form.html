@@ -1,0 +1,37 @@
+{% extends 'course/base.html' %}
+
+{% block title %}Manual Student Add{% endblock %}
+
+{% block content %}
+  <h2>Manual Student Form</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+      <label for="id_name">Name</label><br>
+      <input type="text" name="name" id="id_name">
+    </p>
+    <p>
+      <label for="id_age">Age</label><br>
+      <input type="number" name="age" id="id_age">
+    </p>
+    <p>
+      <label for="id_dob">Date of birth</label><br>
+      <input type="date" name="date_of_birth" id="id_dob">
+    </p>
+    <p>
+      <label for="id_image">Image</label><br>
+      <input type="file" name="image" id="id_image">
+    </p>
+    <fieldset>
+      <legend>Courses</legend>
+      {% for course in courses %}
+        <label>
+          <input type="checkbox" name="courses" value="{{ course.code }}"> {{ course }}
+        </label><br>
+      {% empty %}
+        <p>No courses available. Create some first.</p>
+      {% endfor %}
+    </fieldset>
+    <p><button type="submit">Create student</button></p>
+  </form>
+{% endblock %}
